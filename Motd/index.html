@@ -6,7 +6,6 @@
   <style>
     html, body { height: 100%; margin: 0; }
     body{
-      /* Fondo */
       background: #000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
       background-size: cover;          /* llená sin deformar (recorta un poco) */
       /* background-size: contain; */   /* <-- si preferís SIN recorte (con barras) */
@@ -15,7 +14,6 @@
       overflow: hidden;
     }
 
-    /* Oscurece un poco el fondo para que el texto se lea mejor */
     .shade{
       position: absolute;
       left: 0; top: 0; right: 0; bottom: 0;
@@ -47,6 +45,7 @@
     .btn{
       display: inline-block;
       margin-top: 10px;
+      margin-right: 8px;
       padding: 8px 10px;
       background: rgba(159,211,255,0.18);
       border: 1px solid rgba(159,211,255,0.55);
@@ -62,7 +61,16 @@
     <h1>TF2 Classified | Nubing</h1>
     <p>Bienvenido 👋</p>
     <p><b>Reglas:</b> no cheats • no toxic • respetá al resto</p>
-    <a class="btn" href="https://discord.com/invite/dFzsXZH9KH">Entrar al Discord</a>
+
+    <!-- Botón principal: intenta abrir en el navegador por defecto (Chrome si lo tienen default) -->
+    <a class="btn" href="steam://openurl_external/https://discord.com/invite/dFzsXZH9KH">
+      Abrir Discord en navegador
+    </a>
+
+    <!-- Fallback: abre dentro del navegador de Steam -->
+    <a class="btn" href="https://discord.com/invite/dFzsXZH9KH">
+      Abrir en Steam
+    </a>
   </div>
 </body>
 </html>
