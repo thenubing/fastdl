@@ -2,75 +2,74 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=1024, height=768, initial-scale=1.0">
   <title>TF2 Classified | Nubing</title>
   <style>
-    html, body { height: 100%; margin: 0; }
-    body{
+    html, body { margin:0; padding:0; background:#000; }
+
+    /* Canvas fijo típico del MOTD (4:3) */
+    #stage{
+      width:1024px;
+      height:768px;
+      position:relative;
+      overflow:hidden;
+
+      /* MISMA imagen que ya tenés */
       background: #000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
-      background-size: cover;          /* llená sin deformar (recorta un poco) */
-      /* background-size: contain; */   /* <-- si preferís SIN recorte (con barras) */
+
+      /* Evita deformación: muestra todo (puede dejar barras) */
+      background-size: contain;
+
       font-family: Tahoma, Verdana, Arial, sans-serif;
-      color: #fff;
-      overflow: hidden;
+      color:#fff;
     }
 
+    /* Sombra para legibilidad */
     .shade{
-      position: absolute;
-      left: 0; top: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.20);
+      position:absolute; left:0; top:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.18);
     }
 
     .box{
-      position: absolute;
-      left: 18px; top: 18px;
-      width: 360px;
+      position:absolute;
+      left:18px; top:18px;
+      width:360px;
       background: rgba(0,0,0,0.60);
       border: 1px solid rgba(255,255,255,0.25);
       padding: 14px 16px;
     }
 
-    h1{
-      margin: 0 0 10px;
-      font-size: 22px;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-    }
-
-    p{
-      margin: 6px 0;
-      font-size: 14px;
-      line-height: 1.25;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    }
+    h1{ margin:0 0 10px; font-size:22px; text-shadow:0 1px 2px rgba(0,0,0,0.8); }
+    p{ margin:6px 0; font-size:14px; line-height:1.25; text-shadow:0 1px 2px rgba(0,0,0,0.7); }
 
     .btn{
-      display: inline-block;
-      margin-top: 10px;
-      margin-right: 8px;
-      padding: 8px 10px;
+      display:inline-block;
+      margin-top:10px;
+      margin-right:8px;
+      padding:8px 10px;
       background: rgba(159,211,255,0.18);
       border: 1px solid rgba(159,211,255,0.55);
-      color: #cfeaff;
-      text-decoration: none;
+      color:#cfeaff;
+      text-decoration:none;
     }
   </style>
 </head>
 <body>
-  <div class="shade"></div>
+  <div id="stage">
+    <div class="shade"></div>
 
-  <div class="box">
-    <h1>TF2 Classified | Nubing</h1>
-    <p>Bienvenido 👋</p>
-    <p><b>Reglas:</b> no cheats • no toxic • respetá al resto</p>
+    <div class="box">
+      <h1>TF2 Classified | Nubing</h1>
+      <p>Bienvenido 👋</p>
+      <p><b>Reglas:</b> no cheats • no toxic • respetá al resto</p>
 
-    <!-- Botón principal: intenta abrir en el navegador por defecto (Chrome si lo tienen default) -->
-    <a class="btn" href="steam://openurl_external/https://discord.com/invite/dFzsXZH9KH">
-      Abrir Discord en navegador
-    </a>
-
-    <!-- Fallback: abre dentro del navegador de Steam -->
-    <a class="btn" href="https://discord.com/invite/dFzsXZH9KH">
-      Abrir en Steam
-    </a>
+      <a class="btn" href="steam://openurl_external/https://discord.com/invite/dFzsXZH9KH">
+        Abrir Discord en navegador
+      </a>
+      <a class="btn" href="https://discord.com/invite/dFzsXZH9KH">
+        Abrir en Steam
+      </a>
+    </div>
   </div>
 </body>
 </html>
