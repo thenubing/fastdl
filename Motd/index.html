@@ -2,32 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=1024, height=768, initial-scale=1.0">
   <title>TF2 Classified | Nubing</title>
   <style>
-    html, body { margin:0; padding:0; background:#000; }
+    html, body { width:100%; height:100%; margin:0; padding:0; background:#000; overflow:hidden; }
 
-    /* Canvas fijo típico del MOTD (4:3) */
-    #stage{
-      width:1024px;
-      height:768px;
-      position:relative;
+    #wrap{
+      position:fixed;
+      left:0; top:0; right:0; bottom:0;
       overflow:hidden;
-
-      /* MISMA imagen que ya tenés */
-      background: #000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
-
-      /* Evita deformación: muestra todo (puede dejar barras) */
-      background-size: contain;
-
+      background:#000;
       font-family: Tahoma, Verdana, Arial, sans-serif;
       color:#fff;
     }
 
-    /* Sombra para legibilidad */
+    /* Imagen como elemento (mejor escalado en motores viejos) */
+    #bg{
+      position:absolute;
+      left:0; top:0;
+      width:auto; height:auto;
+      -ms-interpolation-mode: bicubic; /* mejora el scaling en IE-like */
+    }
+
     .shade{
       position:absolute; left:0; top:0; right:0; bottom:0;
       background: rgba(0,0,0,0.18);
+      pointer-events:none;
     }
 
     .box{
@@ -55,7 +54,9 @@
   </style>
 </head>
 <body>
-  <div id="stage">
+  <div id="wrap">
+    <img id="bg" src="ClassifiedTF2Nubingbackground.png" alt="">
+
     <div class="shade"></div>
 
     <div class="box">
@@ -71,5 +72,37 @@
       </a>
     </div>
   </div>
+
+  <script>
+    (function(){
+      var bg = document.getElementById('bg');
+
+      function fitCover(){
+        var w = window.innerWidth  || document.documentElement.clientWidth  || document.body.clientWidth;
+        var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        var iw = parseInt(bg.getAttribute('data-w'),10) || bg.width  || 1920;
+        var ih = parseInt(bg.getAttribute('data-h'),10) || bg.height || 1080;
+
+        var scale = Math.max(w / iw, h / ih);
+        var nw = Math.ceil(iw * scale);
+        var nh = Math.ceil(ih * scale);
+
+        bg.style.width  = nw + 'px';
+        bg.style.height = nh + 'px';
+        bg.style.left   = Math.round((w - nw) / 2) + 'px';
+        bg.style.top    = Math.round((h - nh) / 2) + 'px';
+      }
+
+      bg.onload = function(){
+        // guardar tamaño original una sola vez
+        bg.setAttribute('data-w', bg.width);
+        bg.setAttribute('data-h', bg.height);
+        fitCover();
+      };
+
+      window.onresize = fitCover;
+    })();
+  </script>
 </body>
 </html>
