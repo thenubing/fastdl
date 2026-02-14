@@ -6,17 +6,14 @@
   <style>
     html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background:#111; }
 
-    /* Canvas 4:3 típico del MOTD */
+    /* Fondo "pizarrón" a pantalla completa */
     #board{
-      position:absolute;
-      left:0; top:0;
-      width:1024px; height:768px;
-      overflow:hidden;
+      position:fixed;
+      left:0; top:0; right:0; bottom:0;
       font-family: Tahoma, Verdana, Arial, sans-serif;
       color:#fff;
-
-      /* “Pizarrón” fake (sin imagen extra) */
       background:#5a5c66;
+      overflow:hidden;
     }
 
     /* Viñeta + textura suave para disimular */
@@ -29,7 +26,7 @@
       pointer-events:none;
     }
 
-    /* Scanlines (muy suaves) */
+    /* Scanlines MUY suaves */
     #board:after{
       content:"";
       position:absolute; left:0; top:0; right:0; bottom:0;
@@ -40,43 +37,50 @@
         rgba(0,0,0,0) 2px,
         rgba(0,0,0,0) 4px
       );
-      opacity:0.35;
+      opacity:0.28;
       pointer-events:none;
     }
 
-    /* “Póster pegado” (más chico = menos se nota la baja res) */
+    /* Póster centrado, responsive (16:9) */
     #posterWrap{
       position:absolute;
-      left:50%; top:50%;
-      width:900px; height:506px; /* 16:9 */
-      margin-left:-450px;
-      margin-top:-240px;
+      left:50%;
+      top:52%;
+      width:88%;
+      max-width: 980px;         /* podés subir/bajar esto */
+      transform: translate(-50%, -50%);
 
       background: rgba(0,0,0,0.25);
       border: 2px solid rgba(255,255,255,0.18);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,0.55),
-        0 0 0 8px rgba(0,0,0,0.10);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 0 0 8px rgba(0,0,0,0.10);
       overflow:hidden;
     }
 
+    /* Mantener relación 16:9 sin depender de "aspect-ratio" */
+    #posterWrap::before{
+      content:"";
+      display:block;
+      padding-top: 56.25%; /* 9/16 = 0.5625 */
+    }
+
     #poster{
+      position:absolute;
+      left:0; top:0;
       width:100%;
       height:100%;
       display:block;
-      -ms-interpolation-mode: bicubic; /* ayuda en engines viejos */
+      -ms-interpolation-mode: bicubic;
     }
 
-    /* Un toque de “vidrio” encima del póster */
-    #posterWrap:before{
-      content:"";
+    /* “Vidrio” encima */
+    #glass{
       position:absolute; left:0; top:0; right:0; bottom:0;
       background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.00) 35%, rgba(0,0,0,0.00) 100%);
-      pointer-events:none;
       opacity:0.35;
+      pointer-events:none;
     }
 
-    /* Panel UI arriba a la izquierda */
+    /* Panel UI */
     .box{
       position:absolute;
       left:18px; top:18px;
@@ -97,7 +101,7 @@
       padding:8px 10px;
       background: rgba(159,211,255,0.18);
       border: 1px solid rgba(159,211,255,0.55);
-      color: #cfeaff;
+      color:#cfeaff;
       text-decoration:none;
     }
   </style>
@@ -119,6 +123,7 @@
 
     <div id="posterWrap">
       <img id="poster" src="ClassifiedTF2Nubingbackground.png" alt="">
+      <div id="glass"></div>
     </div>
   </div>
 </body>
