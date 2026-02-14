@@ -2,24 +2,24 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>TF2 Classified | Nubing</title>
+  <title>TF2 Classified | Server</title>
   <style>
     html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background:#0c0f14; }
 
     #root{
       position:fixed; left:0; top:0; right:0; bottom:0;
       font-family: Tahoma, Verdana, Arial, sans-serif;
-      color:#fff;
-      overflow:hidden;
+      color:#fff; overflow:hidden;
       background:#0c0f14;
     }
 
+    /* Fondo blur con tu misma imagen */
     #bg{
       position:absolute; left:-40px; top:-40px; right:-40px; bottom:-40px;
-      background: #000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
-      background-size: cover;
+      background:#000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
+      background-size:cover;
       filter: blur(14px);
-      opacity: 0.26;
+      opacity:0.26;
       transform: scale(1.06);
     }
 
@@ -31,6 +31,7 @@
       pointer-events:none;
     }
 
+    /* Grano/scanlines */
     #noise{
       position:absolute; left:0; top:0; right:0; bottom:0;
       background:
@@ -51,17 +52,17 @@
       animation: drift 10s linear infinite;
     }
     @keyframes drift{
-      0%{ background-position: 0 0, 0 0; }
-      100%{ background-position: 0 120px, 160px 0; }
+      0%{ background-position:0 0, 0 0; }
+      100%{ background-position:0 120px, 160px 0; }
     }
 
-    /* Spotlight (solo luz) */
+    /* Spotlight que sigue el mouse (solo luz) */
     #spot{
       position:absolute;
       width:760px; height:760px;
       left:-9999px; top:-9999px;
       background: radial-gradient(circle, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.06) 28%, rgba(0,0,0,0.00) 62%);
-      opacity:0.40;
+      opacity:0.38;
       pointer-events:none;
       filter: blur(2px);
     }
@@ -71,7 +72,7 @@
     .p{
       position:absolute;
       width:3px; height:3px;
-      border-radius: 999px;
+      border-radius:999px;
       background: rgba(255,255,255,0.22);
       opacity:0.35;
       animation-name: floatUp;
@@ -88,20 +89,20 @@
     #panel{
       position:absolute;
       left:18px; top:18px;
-      width:410px;
+      width:420px;
       background: rgba(0,0,0,0.62);
       border: 1px solid rgba(255,255,255,0.25);
       padding: 14px 16px 12px;
       z-index:10;
     }
 
-    #header{ display:block; margin-bottom:10px; }
+    #header{ margin-bottom:10px; }
 
     #logo{
       width:54px; height:54px;
       vertical-align:middle;
       margin-right:10px;
-      border-radius: 10px;
+      border-radius:10px;
       box-shadow: 0 10px 18px rgba(0,0,0,0.40);
       animation: float 3.8s ease-in-out infinite;
     }
@@ -125,16 +126,6 @@
       text-shadow: 0 1px 2px rgba(0,0,0,0.7);
     }
 
-    /* Mini ticker */
-    #ticker{
-      margin-top:8px;
-      font-size:12px;
-      opacity:0.9;
-      padding:6px 8px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
     p{
       margin:6px 0;
       font-size:14px;
@@ -152,27 +143,83 @@
       opacity:0.95;
     }
 
+    /* Botones + iconos */
+    .btnRow{ margin-top:10px; }
     .btn{
       display:inline-block;
-      margin-top:10px;
-      margin-right:8px;
-      padding:8px 10px;
+      margin:0 8px 8px 0;
+      padding:9px 12px;
       background: rgba(159,211,255,0.18);
       border: 1px solid rgba(159,211,255,0.55);
       color:#cfeaff;
       text-decoration:none;
       cursor:pointer;
       transition: transform 120ms ease, background 120ms ease;
+      position:relative;
+      overflow:hidden;
     }
     .btn:hover{ background: rgba(159,211,255,0.26); transform: translateY(-1px); }
 
-    /* Botón secundario */
     .btn.secondary{
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.20);
-      color: #e8f0ff;
+      color:#e8f0ff;
     }
     .btn.secondary:hover{ background: rgba(255,255,255,0.10); }
+
+    .btn.primary{
+      /* un poquito más protagonista */
+      background: rgba(159,211,255,0.24);
+      border: 1px solid rgba(159,211,255,0.70);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+    }
+    /* brillo sutil que pasa por el botón principal */
+    .btn.primary::after{
+      content:"";
+      position:absolute; left:-60%; top:-40%;
+      width:120%; height:180%;
+      background: linear-gradient(115deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.14) 35%, rgba(255,255,255,0.00) 60%);
+      opacity:0.22;
+      transform: rotate(10deg);
+      animation: btnShine 4.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes btnShine{
+      0%{ transform: translateX(-40%) rotate(10deg); opacity:0.10; }
+      45%{ opacity:0.22; }
+      70%{ transform: translateX(65%) rotate(10deg); opacity:0.12; }
+      100%{ transform: translateX(65%) rotate(10deg); opacity:0.10; }
+    }
+
+    .ico{
+      width:16px; height:16px;
+      display:inline-block;
+      vertical-align:-3px;
+      margin-right:7px;
+      opacity:0.95;
+    }
+
+    /* mini links en 1 sola línea */
+    #miniLinks{
+      margin-top:2px;
+      font-size:12px;
+      opacity:0.90;
+    }
+    #miniLinks a{
+      color:#cfeaff;
+      text-decoration:none;
+      border-bottom:1px solid rgba(207,234,255,0.25);
+    }
+    #miniLinks span{ opacity:0.55; padding:0 6px; }
+
+    #ticker{
+      margin-top:8px;
+      font-size:12px;
+      opacity:0.92;
+      padding:6px 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
 
     #tip{
       margin-top:10px;
@@ -246,7 +293,7 @@
       100%{ transform: translateX(55%) rotate(8deg); opacity:0.10; }
     }
 
-    /* Sello esquina (este sí “sigue” el mouse un poquito) */
+    /* Sello esquina (parallax sutil) */
     #stamp{
       position:absolute;
       right:18px; bottom:16px;
@@ -267,8 +314,7 @@
       50%{ transform: translateY(-4px); }
       100%{ transform: translateY(0px); }
     }
-    #stamp img{ width:100%; height:100%; display:block; border-radius: 10px; opacity:0.95; }
-
+    #stamp img{ width:100%; height:100%; display:block; border-radius:10px; opacity:0.95; }
   </style>
 </head>
 <body>
@@ -282,8 +328,8 @@
     <div id="panel">
       <div id="header">
         <img id="logo" src="logoserver.png" alt="logo">
-        <div id="title">TF2 Classified | Server</div>
-        <div id="subtitle">LATAM • Community</div>
+        <div id="title">TF2 Classified | LATAM</div>
+        <div id="subtitle">Community server</div>
       </div>
 
       <p><b>Reglas:</b> no cheats • no toxic • respetá al resto</p>
@@ -294,10 +340,23 @@
         <span class="chip">🌎 LATAM</span>
       </div>
 
-      <a class="btn" href="steam://openurl_external/https://discord.com/invite/dFzsXZH9KH">Discord (navegador)</a>
-      <a class="btn secondary" href="https://discord.com/invite/dFzsXZH9KH">Discord (Steam)</a>
-      <a class="btn secondary" href="steam://openurl_external/https://steamcommunity.com/groups/TF2CLatam">Grupo Steam</a>
-      <a class="btn secondary" id="copyBtn">Copiar link</a>
+      <div class="btnRow">
+        <a class="btn primary" href="steam://openurl_external/https://discord.com/invite/dFzsXZH9KH">
+          <img class="ico" src="discordlogo.png" alt="">Discord
+        </a>
+
+        <a class="btn secondary" href="steam://openurl_external/https://steamcommunity.com/groups/TF2CLatam">
+          <img class="ico" src="steamlogo.png" alt="">Grupo Steam
+        </a>
+
+        <a class="btn secondary" id="copyBtn">Copiar links</a>
+      </div>
+
+      <div id="miniLinks">
+        <a href="https://discord.com/invite/dFzsXZH9KH">Discord (Steam)</a>
+        <span>•</span>
+        <a href="https://steamcommunity.com/groups/TF2CLatam">Grupo (Steam)</a>
+      </div>
 
       <div id="ticker">• Cargando…</div>
       <div id="tip">Cargando…</div>
@@ -318,18 +377,21 @@
       var DISCORD = "https://discord.com/invite/dFzsXZH9KH";
       var STEAMGROUP = "https://steamcommunity.com/groups/TF2CLatam";
 
-      // Copiar link (muestra ambos)
+      // Copiar links
       var copyBtn = document.getElementById('copyBtn');
       copyBtn.onclick = function(){
-        window.prompt("Links (copiá el que quieras):\nDiscord:\n" + DISCORD + "\n\nGrupo Steam:\n" + STEAMGROUP, DISCORD);
+        window.prompt(
+          "Links (copiá el que quieras):\n\nDiscord:\n" + DISCORD + "\n\nGrupo Steam:\n" + STEAMGROUP,
+          DISCORD
+        );
       };
 
-      // Tips (estilo 💡, sin “nubing”)
+      // Tips (💡, como querías)
       var tips = [
-        "💡 ¿No te abre Discord? Probá el botón “Discord (navegador)”.",
+        "💡 ¿No te abre Discord? Probá el botón “Discord” (navegador).",
         "💡 Reglas: nada de cheats / exploits.",
         "💡 Sumate al Discord para avisos de mapas/eventos y soporte.",
-        "💡 Uní­te al Grupo Steam para notificaciones y comunidad."
+        "💡 Unite al Grupo Steam para notificaciones y comunidad."
       ];
       var tipEl = document.getElementById('tip');
       var i = 0;
@@ -344,13 +406,13 @@
       setTip();
       setInterval(setTip, 4200);
 
-      // Ticker rotativo mini
+      // Ticker mini
       var ticker = document.getElementById('ticker');
       var items = [
-        "• Eventos y avisos en Discord",
-        "• Grupo Steam: TF2CLatam",
-        "• Respeto + juego limpio = mejor server",
-        "• Sugerencias / reportes: Discord"
+        "• Eventos y avisos: Discord",
+        "• Comunidad: Grupo Steam TF2CLatam",
+        "• Juego limpio + respeto = mejor server",
+        "• Reportes / sugerencias: Discord"
       ];
       var t = 0;
       function setTicker(){
@@ -364,20 +426,19 @@
       setTicker();
       setInterval(setTicker, 3200);
 
-      // Spotlight sigue el mouse
+      // Spotlight + parallax SOLO del sello
       var spot = document.getElementById('spot');
+      var stamp = document.getElementById('stamp');
       document.onmousemove = function(e){
         var x = e.clientX || 0;
         var y = e.clientY || 0;
         spot.style.left = (x - 380) + "px";
         spot.style.top  = (y - 380) + "px";
 
-        // Parallax solo del sello (sutil)
         var w = window.innerWidth || 1024;
         var h = window.innerHeight || 768;
         var dx = ((x / w) - 0.5) * 8;
         var dy = ((y / h) - 0.5) * 8;
-        var stamp = document.getElementById('stamp');
         stamp.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px)";
       };
 
@@ -398,9 +459,20 @@
         particles.appendChild(s);
       }
 
-      // Si falta logo, ocultar
-      var logo = document.getElementById('logo');
-      logo.onerror = function(){ logo.style.display = "none"; };
+      // Si falta algo, ocultar
+      function hideOnError(id){
+        var el = document.getElementById(id);
+        if(!el) return;
+        el.onerror = function(){ el.style.display = "none"; };
+      }
+      hideOnError('logo');
+      // iconos: si fallan, se ocultan solos
+      var icons = document.getElementsByTagName('img');
+      for(var k=0; k<icons.length; k++){
+        (function(img){
+          img.onerror = function(){ img.style.display="none"; };
+        })(icons[k]);
+      }
     })();
   </script>
 </body>
