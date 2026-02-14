@@ -357,13 +357,16 @@
           Discord (Steam)
         </a>
 
-        <a class="btn secondary" id="copyBtn">Copiar links</a>
+        <!-- Copiar links: abre tu links.txt -->
+        <a class="btn secondary" href="links.txt">
+          Copiar links
+        </a>
       </div>
 
       <!-- Grupo Steam simplón, separado y estético -->
       <div id="steamGroupBox">
         <div id="steamGroupLabel">Grupo Steam</div>
-        <a class="steamPill" href="steam://openurl_external/https://steamcommunity.com/groups/TF2CLatam">
+        <a class="steamPill" href="https://steamcommunity.com/groups/TF2CLatam">
           <img class="ico" src="steamlogo.png" alt="">steamcommunity.com/groups/TF2CLatam
         </a>
       </div>
@@ -384,19 +387,7 @@
 
   <script>
     (function(){
-      var DISCORD = "https://discord.com/invite/dFzsXZH9KH";
-      var STEAMGROUP = "https://steamcommunity.com/groups/TF2CLatam";
-
-      // Copiar links
-      var copyBtn = document.getElementById('copyBtn');
-      copyBtn.onclick = function(){
-        window.prompt(
-          "Links:\n\nDiscord:\n" + DISCORD + "\n\nGrupo Steam:\n" + STEAMGROUP,
-          DISCORD
-        );
-      };
-
-      // Tips (cortitos como querías)
+      // Tips (cortitos)
       var tips = [
         "💡 ¿No te abre Discord? Probá “Discord (navegador)”.",
         "💡 Reglas: nada de cheats / exploits.",
