@@ -6,7 +6,6 @@
   <style>
     html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background:#0c0f14; }
 
-    /* CONTENEDOR */
     #root{
       position:fixed; left:0; top:0; right:0; bottom:0;
       font-family: Tahoma, Verdana, Arial, sans-serif;
@@ -15,33 +14,31 @@
       background:#0c0f14;
     }
 
-    /* FONDO: usamos tu MISMA imagen, pero blur + oscurecida */
+    /* Fondo blur con tu misma imagen */
     #bg{
-      position:absolute;
-      left:-40px; top:-40px; right:-40px; bottom:-40px;
+      position:absolute; left:-40px; top:-40px; right:-40px; bottom:-40px;
       background: #000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
       background-size: cover;
       filter: blur(14px);
-      opacity: 0.28;
+      opacity: 0.26;
       transform: scale(1.06);
     }
 
-    /* Viñeta + contraste */
     #vignette{
       position:absolute; left:0; top:0; right:0; bottom:0;
       background:
-        radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.55) 100%),
+        radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.60) 100%),
         linear-gradient(0deg, rgba(0,0,0,0.12), rgba(0,0,0,0.12));
       pointer-events:none;
     }
 
-    /* Grano/scanlines animadas (muy suave) */
+    /* Grano / scanlines (suave) */
     #noise{
       position:absolute; left:0; top:0; right:0; bottom:0;
       background:
         repeating-linear-gradient(0deg,
-          rgba(255,255,255,0.018) 0px,
-          rgba(255,255,255,0.018) 1px,
+          rgba(255,255,255,0.016) 0px,
+          rgba(255,255,255,0.016) 1px,
           rgba(0,0,0,0) 2px,
           rgba(0,0,0,0) 5px
         ),
@@ -51,7 +48,7 @@
           rgba(0,0,0,0) 3px,
           rgba(0,0,0,0) 7px
         );
-      opacity:0.32;
+      opacity:0.30;
       pointer-events:none;
       animation: drift 10s linear infinite;
     }
@@ -60,82 +57,54 @@
       100%{ background-position: 0 120px, 160px 0; }
     }
 
-    /* PÓSTER (centrado, 16:9) */
-    #posterWrap{
+    /* Spotlight que sigue el mouse (solo luz) */
+    #spot{
       position:absolute;
-      left:50%;
-      top:54%;
-      width:88%;
-      max-width: 980px;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.25);
-      border: 2px solid rgba(255,255,255,0.18);
-      box-shadow:
-        0 18px 44px rgba(0,0,0,0.60),
-        0 0 0 10px rgba(0,0,0,0.10);
+      width:760px; height:760px;
+      left:-9999px; top:-9999px;
+      background: radial-gradient(circle, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.06) 28%, rgba(0,0,0,0.00) 62%);
+      opacity:0.40;
+      pointer-events:none;
+      filter: blur(2px);
+    }
+
+    /* Partículas */
+    #particles{
+      position:absolute; left:0; top:0; right:0; bottom:0;
+      pointer-events:none;
       overflow:hidden;
     }
-
-    /* Mantener 16:9 sin depender de "aspect-ratio" */
-    #posterWrap::before{ content:""; display:block; padding-top:56.25%; }
-
-    #poster{
-      position:absolute; left:0; top:0;
-      width:100%; height:100%;
-      display:block;
-      -ms-interpolation-mode: bicubic;
-    }
-
-    /* “Vidrio” / brillo que barre cada tanto */
-    #shine{
+    .p{
       position:absolute;
-      left:-60%; top:-40%;
-      width:120%; height:180%;
-      background: linear-gradient(115deg,
-        rgba(255,255,255,0.00) 0%,
-        rgba(255,255,255,0.10) 35%,
-        rgba(255,255,255,0.00) 60%
-      );
+      width:3px; height:3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
       opacity:0.35;
-      transform: rotate(8deg);
-      pointer-events:none;
-      animation: shine 6.5s ease-in-out infinite;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
-    @keyframes shine{
-      0%{ transform: translateX(-40%) rotate(8deg); opacity:0.10; }
-      35%{ opacity:0.35; }
-      60%{ transform: translateX(55%) rotate(8deg); opacity:0.18; }
-      100%{ transform: translateX(55%) rotate(8deg); opacity:0.10; }
+    .p.orange{
+      background: rgba(255,160,80,0.22);
+      opacity:0.28;
+    }
+    @keyframes floatUp{
+      0%   { transform: translateY(90px) translateX(0px); }
+      100% { transform: translateY(-920px) translateX(26px); }
     }
 
-    /* “Cinta” en las esquinas (detalle) */
-    .tape{
-      position:absolute;
-      width:120px; height:34px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.35);
-      opacity:0.9;
-      pointer-events:none;
-    }
-    #tape1{ left:18px; top:12px; transform: rotate(-12deg); }
-    #tape2{ right:18px; top:12px; transform: rotate(10deg); }
-
-    /* PANEL UI */
+    /* PANEL */
     #panel{
       position:absolute;
       left:18px; top:18px;
-      width:380px;
+      width:390px;
       background: rgba(0,0,0,0.62);
       border: 1px solid rgba(255,255,255,0.25);
       padding: 14px 16px 12px;
-      z-index:5;
+      z-index:10;
     }
 
-    #header{
-      display:block;
-      margin-bottom:10px;
-    }
+    #header{ display:block; margin-bottom:10px; }
 
     #logo{
       width:54px; height:54px;
@@ -158,7 +127,6 @@
       font-weight:bold;
       text-shadow: 0 1px 2px rgba(0,0,0,0.85);
     }
-
     #subtitle{
       margin-top:6px;
       font-size:12px;
@@ -193,8 +161,12 @@
       color:#cfeaff;
       text-decoration:none;
       cursor:pointer;
+      transition: transform 120ms ease, background 120ms ease;
     }
-    .btn:hover{ background: rgba(159,211,255,0.26); }
+    .btn:hover{
+      background: rgba(159,211,255,0.26);
+      transform: translateY(-1px);
+    }
 
     #tip{
       margin-top:10px;
@@ -205,11 +177,98 @@
       transition: opacity 250ms ease;
     }
 
-    /* footer mini */
-    #hint{
-      margin-top:6px;
-      font-size:11px;
-      opacity:0.70;
+    /* PÓSTER */
+    #posterWrap{
+      position:absolute;
+      left:50%;
+      top:54%;
+      width:88%;
+      max-width: 980px;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.25);
+      border: 2px solid rgba(255,255,255,0.18);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.60),
+        0 0 0 10px rgba(0,0,0,0.10);
+      overflow:hidden;
+      animation: breathe 5.2s ease-in-out infinite;
+    }
+    @keyframes breathe{
+      0%   { transform: translate(-50%, -50%) translateY(0px) scale(1.000); }
+      50%  { transform: translate(-50%, -50%) translateY(-3px) scale(1.003); }
+      100% { transform: translate(-50%, -50%) translateY(0px) scale(1.000); }
+    }
+
+    #posterWrap::before{ content:""; display:block; padding-top:56.25%; }
+
+    #poster{
+      position:absolute; left:0; top:0;
+      width:100%; height:100%;
+      display:block;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    /* Cinta */
+    .tape{
+      position:absolute;
+      width:120px; height:34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+      opacity:0.9;
+      pointer-events:none;
+      z-index:3;
+    }
+    #tape1{ left:18px; top:12px; transform: rotate(-12deg); }
+    #tape2{ right:18px; top:12px; transform: rotate(10deg); }
+
+    /* Brillo en el póster */
+    #shine{
+      position:absolute;
+      left:-60%; top:-40%;
+      width:120%; height:180%;
+      background: linear-gradient(115deg,
+        rgba(255,255,255,0.00) 0%,
+        rgba(255,255,255,0.10) 35%,
+        rgba(255,255,255,0.00) 60%
+      );
+      opacity:0.35;
+      transform: rotate(8deg);
+      pointer-events:none;
+      animation: shine 6.5s ease-in-out infinite;
+      z-index:2;
+    }
+    @keyframes shine{
+      0%{ transform: translateX(-40%) rotate(8deg); opacity:0.10; }
+      35%{ opacity:0.35; }
+      60%{ transform: translateX(55%) rotate(8deg); opacity:0.18; }
+      100%{ transform: translateX(55%) rotate(8deg); opacity:0.10; }
+    }
+
+    /* Sello/logo esquina */
+    #stamp{
+      position:absolute;
+      right:18px; bottom:16px;
+      width:74px; height:74px;
+      opacity:0.85;
+      border-radius: 14px;
+      box-shadow: 0 18px 34px rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding:10px;
+      z-index:9;
+      animation: stampFloat 4.6s ease-in-out infinite;
+    }
+    @keyframes stampFloat{
+      0%{ transform: translateY(0px); }
+      50%{ transform: translateY(-4px); }
+      100%{ transform: translateY(0px); }
+    }
+    #stamp img{
+      width:100%; height:100%;
+      display:block;
+      border-radius: 10px;
+      opacity:0.95;
     }
 
   </style>
@@ -219,6 +278,8 @@
     <div id="bg"></div>
     <div id="vignette"></div>
     <div id="noise"></div>
+    <div id="spot"></div>
+    <div id="particles"></div>
 
     <div id="panel">
       <div id="header">
@@ -241,12 +302,9 @@
       <a class="btn" href="https://discord.com/invite/dFzsXZH9KH">
         Abrir en Steam
       </a>
-      <a class="btn" id="copyBtn">
-        Copiar link
-      </a>
+      <a class="btn" id="copyBtn">Copiar link</a>
 
-      <div id="tip">Cargando tips…</div>
-      <div id="hint">Si no te abre el MOTD: en consola <b>cl_disablehtmlmotd 0</b></div>
+      <div id="tip">Cargando…</div>
     </div>
 
     <div id="posterWrap">
@@ -256,6 +314,8 @@
       <img id="poster" src="ClassifiedTF2Nubingbackground.png" alt="">
       <div id="shine"></div>
     </div>
+
+    <div id="stamp"><img src="logoserver.png" alt=""></div>
   </div>
 
   <script>
@@ -265,45 +325,61 @@
       // Copiar link (compat total)
       var copyBtn = document.getElementById('copyBtn');
       copyBtn.onclick = function(){
-        window.prompt("Copiá este link y pegalo en tu navegador:", DISCORD);
+        window.prompt("Copiá este link:", DISCORD);
       };
 
-      // Tips rotativos
+      // Tips (sin cosas técnicas)
       var tips = [
-        "Tip: si el MOTD se ve borroso, es normal (renderer viejo). Lo disimulamos con grano/shine 😄",
-        "¿No te abre Discord? Probá el botón 'Abrir Discord en navegador' (usa tu navegador por defecto).",
-        "Regla de oro: nada de cheats / exploits en partidas públicas.",
-        "Sumate al Discord para avisos de mapas/eventos y soporte."
+        "Sumate al Discord para avisos y eventos.",
+        "Jugá limpio, respetá al resto y pasala bien.",
+        "Si ves algo raro, avisá por Discord.",
+        "Bienvenido a Nubing — nos vemos adentro."
       ];
       var tipEl = document.getElementById('tip');
       var i = 0;
-
       function setTip(){
         tipEl.style.opacity = 0;
         setTimeout(function(){
-          tipEl.innerHTML = "💡 " + tips[i];
+          tipEl.innerHTML = "💬 " + tips[i];
           tipEl.style.opacity = 1;
           i = (i + 1) % tips.length;
         }, 220);
       }
       setTip();
-      setInterval(setTip, 4500);
+      setInterval(setTip, 4200);
 
-      // Parallax suave (si hay mouse)
-      var posterWrap = document.getElementById('posterWrap');
+      // Spotlight sigue el mouse (solo luz)
+      var spot = document.getElementById('spot');
       document.onmousemove = function(e){
-        var w = window.innerWidth || 1024;
-        var h = window.innerHeight || 768;
-        var x = (e.clientX / w) - 0.5;
-        var y = (e.clientY / h) - 0.5;
-        var tx = (x * 8);
-        var ty = (y * 6);
-        posterWrap.style.transform = "translate(-50%, -50%) translate(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px)";
+        var x = e.clientX || 0;
+        var y = e.clientY || 0;
+        spot.style.left = (x - 380) + "px";
+        spot.style.top  = (y - 380) + "px";
       };
+
+      // Partículas (DOM, ES5)
+      var particles = document.getElementById('particles');
+      function rnd(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+      for(var n=0; n<28; n++){
+        var s = document.createElement('div');
+        s.className = "p" + (n % 7 === 0 ? " orange" : "");
+        s.style.left = rnd(0, 100) + "%";
+        s.style.top  = rnd(10, 100) + "%";
+        var size = rnd(2, 4);
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.opacity = (rnd(18, 45) / 100).toFixed(2);
+        s.style.animationDuration = rnd(7, 14) + "s";
+        s.style.animationDelay = (-rnd(0, 14)) + "s";
+        particles.appendChild(s);
+      }
 
       // Si no existe logo, lo escondemos
       var logo = document.getElementById('logo');
       logo.onerror = function(){ logo.style.display = "none"; };
+      var stampImg = document.querySelector('#stamp img');
+      stampImg.onerror = function(){ document.getElementById('stamp').style.display = "none"; };
     })();
   </script>
 </body>
