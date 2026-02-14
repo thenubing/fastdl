@@ -6,30 +6,63 @@
   <style>
     html, body { height: 100%; margin: 0; }
     body{
-      background: url("ClassifiedTF2Nubingbackground.png") no-repeat center center fixed;
-      background-size: cover;
+      /* Fondo */
+      background: #000 url("ClassifiedTF2Nubingbackground.png") no-repeat center center;
+      background-size: cover;          /* llená sin deformar (recorta un poco) */
+      /* background-size: contain; */   /* <-- si preferís SIN recorte (con barras) */
       font-family: Tahoma, Verdana, Arial, sans-serif;
       color: #fff;
       overflow: hidden;
     }
+
+    /* Oscurece un poco el fondo para que el texto se lea mejor */
+    .shade{
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.20);
+    }
+
     .box{
       position: absolute;
-      left: 20px; right: 20px; top: 20px;
-      background: rgba(0,0,0,0.55);
+      left: 18px; top: 18px;
+      width: 360px;
+      background: rgba(0,0,0,0.60);
       border: 1px solid rgba(255,255,255,0.25);
       padding: 14px 16px;
     }
-    h1{ margin: 0 0 8px; font-size: 22px; }
-    p{ margin: 6px 0; font-size: 14px; line-height: 1.25; }
-    a{ color: #9fd3ff; }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: 22px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    p{
+      margin: 6px 0;
+      font-size: 14px;
+      line-height: 1.25;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+    }
+
+    .btn{
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: rgba(159,211,255,0.18);
+      border: 1px solid rgba(159,211,255,0.55);
+      color: #cfeaff;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
+  <div class="shade"></div>
+
   <div class="box">
     <h1>TF2 Classified | Nubing</h1>
     <p>Bienvenido 👋</p>
-    <p>Reglas: no cheats • no toxic • respetá al resto</p>
-    <p>Discord: <a href="https://TU_LINK">TU_LINK</a></p>
+    <p><b>Reglas:</b> no cheats • no toxic • respetá al resto</p>
+    <a class="btn" href="https://discord.com/invite/dFzsXZH9KH">Entrar al Discord</a>
   </div>
 </body>
 </html>
