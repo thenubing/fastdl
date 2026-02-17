@@ -1,0 +1,9 @@
+"Patch"
+{
+	include "materials\models\player\shared\invuln_blue.vmt"
+	
+	insert
+	{
+	"$baseTexture" "models\player\civilian_vip/def_sans_m_col"
+	}
+}
