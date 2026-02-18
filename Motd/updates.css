@@ -1,0 +1,236 @@
+:root{
+  --bg:#0b0c10;
+  --panel:#11131a;
+  --panel2:#0f1117;
+  --text:#e8e8ee;
+  --muted:#b8b8c7;
+  --line:rgba(255,255,255,.10);
+  --line2:rgba(255,255,255,.14);
+  --shadow: 0 18px 40px rgba(0,0,0,.45);
+  --radius: 18px;
+  --radius2: 26px;
+  --max: 1120px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(120, 92, 255, .20), transparent 55%),
+              radial-gradient(900px 700px at 100% 0%, rgba(0, 224, 255, .14), transparent 45%),
+              var(--bg);
+  color:var(--text);
+}
+
+a{color:inherit; text-decoration:none}
+code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+.container{width:100%; max-width:var(--max); margin:0 auto; padding:0 18px}
+
+.topbar{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(10px);
+  background: rgba(11,12,16,.72);
+  border-bottom:1px solid var(--line);
+}
+.topbar__inner{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+
+.brand{display:flex; align-items:center; gap:10px}
+.brand__logo{width:34px; height:34px; border-radius:10px; object-fit:cover; border:1px solid var(--line2)}
+.brand__text{font-weight:800; letter-spacing:.3px}
+
+.topbar__actions{display:flex; align-items:center; gap:10px}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px;
+  border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+  border:1px solid var(--line2);
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+  font-weight:700;
+}
+.btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+
+.ghost{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  color:var(--muted);
+}
+.ghost:hover{border-color: rgba(255,255,255,.18); color:var(--text)}
+
+.hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line)}
+.hero__bg{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(11,12,16,.30), rgba(11,12,16,.92)),
+    url("ClassifiedTF2Nubingbackground.png") top center/cover no-repeat;
+  filter:saturate(1.05);
+}
+.hero__inner{
+  position:relative;
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:18px;
+  /* Deja el título visible arriba del fondo (evita que “caiga” demasiado abajo) */
+  padding:26px 0 22px;
+  min-height: 380px;
+  align-items:start;
+}
+
+.hero h1{margin:0 0 10px; font-size: clamp(28px, 3vw, 44px); letter-spacing:.2px}
+.lead{margin:0 0 14px; color:rgba(255,255,255,.82); line-height:1.35}
+
+.hero__meta{display:flex; flex-wrap:wrap; gap:10px}
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 10px;
+  border-radius:999px;
+  background: rgba(17,19,26,.62);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.86);
+  font-weight:700;
+  font-size:13px;
+}
+
+.card{
+  background: linear-gradient(180deg, rgba(17,19,26,.72), rgba(15,17,23,.68));
+  border:1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+}
+
+.quick{padding:16px}
+.quick__title{font-weight:900; color:rgba(255,255,255,.9); margin-bottom:10px}
+.quick__grid{display:flex; flex-wrap:wrap; gap:10px}
+.chip{
+  display:inline-flex; align-items:center;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color:rgba(255,255,255,.92);
+  font-weight:750;
+  font-size:13px;
+}
+.chip:hover{border-color: rgba(255,255,255,.22); transform: translateY(-1px)}
+
+.toolbar{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:18px 18px 0}
+.filters{display:flex; flex-wrap:wrap; gap:10px}
+.filter{
+  cursor:pointer;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color:rgba(255,255,255,.86);
+  font-weight:750;
+  font-size:13px;
+}
+.filter:hover{border-color: rgba(255,255,255,.22)}
+.filter.is-active{background: rgba(120,92,255,.18); border-color: rgba(120,92,255,.42)}
+
+.search{position:relative; display:flex; align-items:center}
+.search__icon{position:absolute; left:12px; opacity:.75}
+#search{
+  width:min(360px, 60vw);
+  padding:10px 12px 10px 34px;
+  border-radius: 14px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.90);
+  outline:none;
+}
+#search:focus{border-color: rgba(120,92,255,.50); box-shadow: 0 0 0 4px rgba(120,92,255,.18)}
+
+.stack{padding:18px 18px 44px}
+
+.update{
+  margin-top:16px;
+  border-radius: var(--radius2);
+  border:1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(17,19,26,.72), rgba(15,17,23,.64));
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+
+.update__head{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:18px 18px 10px}
+.update__head h2{margin:0; font-size:20px; letter-spacing:.2px}
+
+.badges{display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end}
+.badge{
+  font-size:12px;
+  font-weight:800;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.90);
+}
+.badge--soft{background: rgba(0,224,255,.10); border-color: rgba(0,224,255,.24)}
+.badge--warn{background: rgba(255,190,65,.12); border-color: rgba(255,190,65,.30)}
+
+.update__body{padding:0 18px 18px; color: rgba(255,255,255,.88)}
+.update__body h3{margin:14px 0 8px; font-size:16px; color: rgba(255,255,255,.92)}
+
+.note{margin:10px 0 0; color: rgba(255,255,255,.70)}
+
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.col{padding:12px; border-radius: var(--radius); border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03)}
+
+.gridlist{display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px 16px; margin:12px 0 0; padding-left:18px}
+
+.callouts{display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; margin-top:14px}
+.callout{
+  padding:12px;
+  border-radius: var(--radius);
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+}
+.callout--warn{border-color: rgba(255,190,65,.25); background: rgba(255,190,65,.08)}
+.callout__title{font-weight:900; margin-bottom:6px}
+
+.details{
+  margin-top:14px;
+  border-radius: var(--radius);
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  overflow:hidden;
+}
+.details summary{cursor:pointer; padding:12px; font-weight:850}
+.details__inner{padding:0 12px 12px}
+
+.gallery{display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:12px; margin-top:10px}
+.gallery--two{grid-template-columns: repeat(2, minmax(0, 1fr));}
+figure{margin:0; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03)}
+figure img{display:block; width:100%; height:220px; object-fit:cover; background: rgba(0,0,0,.25)}
+figcaption{padding:10px 10px 11px; font-size:13px; color: rgba(255,255,255,.78)}
+
+.footer{border-top:1px solid var(--line); padding:22px 0 32px; color:rgba(255,255,255,.75)}
+.footer__inner{display:flex; align-items:flex-end; justify-content:space-between; gap:12px}
+.footer__title{font-weight:900; color:rgba(255,255,255,.92)}
+.footer__sub{font-size:13px}
+.link{color:rgba(255,255,255,.80)}
+.link:hover{color:rgba(255,255,255,.96)}
+
+.hidden{display:none !important;}
+
+@media (max-width: 920px){
+  .hero__inner{grid-template-columns:1fr; min-height: 360px}
+  .toolbar{flex-direction:column; align-items:stretch}
+  #search{width:100%}
+  .cols{grid-template-columns:1fr}
+  .callouts{grid-template-columns:1fr}
+  .gridlist{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr}
+  figure img{height:220px;}
+}
+
+@media (max-width: 520px){
+  .brand__text{display:none}
+  .hero__inner{min-height: 320px}
+  figure img{height:200px}
+}
