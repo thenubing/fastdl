@@ -158,6 +158,30 @@
     }
     .btn:hover{ background: rgba(159,211,255,0.26); transform: translateY(-1px); }
 
+
+    /* Botón de Updates separado */
+    #updatesBox{ margin-top:10px; }
+    .btn.updates{
+      display:block;
+      width:100%;
+      box-sizing:border-box;
+      text-align:center;
+      font-weight:700;
+      letter-spacing:0.2px;
+      background: rgba(255, 196, 90, 0.18);
+      border: 1px solid rgba(255, 196, 90, 0.55);
+      color:#fff2d1;
+    }
+    .btn.updates:hover{
+      background: rgba(255, 196, 90, 0.26);
+    }
+    .updatesHint{
+      margin-top:6px;
+      font-size:12px;
+      opacity:0.85;
+    }
+
+
     .btn.secondary{
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.20);
@@ -369,6 +393,13 @@
         <a class="steamPill" href="https://steamcommunity.com/groups/TF2CLatam">
           <img class="ico" src="steamlogo.png" alt="">steamcommunity.com/groups/TF2CLatam
         </a>
+      </div>
+
+
+      <!-- Updates / Changelog (separado) -->
+      <div id="updatesBox">
+        <a class="btn updates" href="updates.html">🧾 Updates / Cambios</a>
+        <div class="updatesHint">Ver changelog completo (ES/EN) y capturas.</div>
       </div>
 
       <div id="ticker">• Cargando…</div>
