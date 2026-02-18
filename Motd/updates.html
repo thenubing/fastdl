@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Updates | TF2C LATAM</title>
+  <meta name="description" content="Registro de cambios (changelog) y novedades de los servidores TF2C LATAM." />
+
+  <!-- Optional: uses the background image if it exists in your repo root -->
+  <link rel="preload" as="image" href="ClassifiedTF2Nubingbackground.png" />
+
+  <link rel="stylesheet" href="updates.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html" title="Volver al inicio">
+        <img class="brand__logo" src="logoserver.png" alt="Logo del server" onerror="this.style.display='none'" />
+        <span class="brand__text">TF2C LATAM</span>
+      </a>
+
+      <nav class="topbar__actions">
+        <a class="ghost" href="updates-en.html" aria-label="Switch to English">EN</a>
+        <a class="btn" href="index.html">⬅ Volver</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <h1>Updates del servidor</h1>
+          <p class="lead">Todo lo nuevo, arreglos, comandos y contenido. Pensado para que no se pierda nada (porque Discord ya queda corto 😅).</p>
+          <div class="hero__meta">
+            <span class="pill">📅 Febrero 2026</span>
+            <span class="pill">🧩 General + 🎨 Custom</span>
+            <span class="pill">🛠️ En progreso: RTD / Unusuals</span>
+          </div>
+        </div>
+
+        <div class="hero__cta">
+          <div class="card quick">
+            <div class="quick__title">Atajos</div>
+            <div class="quick__grid">
+              <a class="chip" href="#reorganizacion">Reorganización</a>
+              <a class="chip" href="#general">Cambios generales</a>
+              <a class="chip" href="#custom">Extras Custom</a>
+              <a class="chip" href="#arena">Arena mejorada</a>
+              <a class="chip" href="#admin">Herramientas Admin</a>
+              <a class="chip" href="#galeria">Galería</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container toolbar" aria-label="Filtros">
+      <div class="toolbar__left">
+        <div class="filters" role="tablist" aria-label="Filtrar cambios">
+          <button class="filter is-active" data-filter="all" role="tab">Todo</button>
+          <button class="filter" data-filter="general" role="tab">Todos los servers</button>
+          <button class="filter" data-filter="custom" role="tab">Solo Custom</button>
+          <button class="filter" data-filter="vanilla" role="tab">Vanilla</button>
+          <button class="filter" data-filter="wip" role="tab">En progreso</button>
+        </div>
+      </div>
+      <div class="toolbar__right">
+        <label class="search">
+          <span class="search__icon">🔎</span>
+          <input id="search" type="search" placeholder="Buscar: rtd, unusuals, miku, money…" autocomplete="off" />
+        </label>
+      </div>
+    </section>
+
+    <!-- UPDATE BLOCKS -->
+    <section class="container stack">
+
+      <article id="reorganizacion" class="update" data-tags="general">
+        <header class="update__head">
+          <h2>🔁 Reorganización de servidores</h2>
+          <div class="badges">
+            <span class="badge">Todos los servers</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <div class="cols">
+            <div class="col">
+              <h3>🎨 CUSTOM</h3>
+              <ul>
+                <li>Server #2 → <b>Custom #1</b></li>
+                <li>Server #4 → <b>Custom 64 #2</b></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3>⚙️ VANILLA</h3>
+              <ul>
+                <li>Server #1 → <b>Vanilla #1</b></li>
+                <li>Server #3 → <b>Vanilla 64 #2</b></li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">Idea: que quede bien claro qué server es “vanilla” y cuál es “custom”, sin mezclar reglas/mods.</p>
+        </div>
+      </article>
+
+      <article id="general" class="update" data-tags="general">
+        <header class="update__head">
+          <h2>🧩 Cambios generales y fixes</h2>
+          <div class="badges">
+            <span class="badge">Todos los servers</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <ul class="gridlist">
+            <li><b>VIP Menu</b> actualizado.</li>
+            <li><b>Menú de Admin</b> (`!admin`) mejorado.</li>
+            <li><b>Custom MOTD</b> + <b>menú de bienvenida</b>.</li>
+            <li><b>!sorteos</b> más intuitivo y más visible para que la gente sepa cómo unirse.</li>
+            <li>Fix: cuando estabas muerto <b>no se veían rango ni colores del chat</b>.</li>
+            <li>Fix: por alguna razón los admins <b>no podían escribir en color</b>.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="sprays" class="update" data-tags="general">
+        <header class="update__head">
+          <h2>🧼 Sprays: Spray Tracer</h2>
+          <div class="badges">
+            <span class="badge">Todos los servers</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <p>No hay moderación estricta con sprays, pero ahora se puede saber quién lo puso y limpiarlo si hace falta:</p>
+          <ul>
+            <li><code>sm_spraytrace</code></li>
+            <li><code>sm_removespray</code></li>
+            <li><code>sm_adminspray</code></li>
+          </ul>
+          <p class="note">Tip: si ven uno re zarpado, avisen por Discord con map + minuto aproximado.</p>
+        </div>
+      </article>
+
+      <article id="votes" class="update" data-tags="general vanilla">
+        <header class="update__head">
+          <h2>🗳️ Votaciones: NativeVotes</h2>
+          <div class="badges">
+            <span class="badge">Custom</span>
+            <span class="badge badge--soft">Migrando a Vanilla</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <p>NativeVotes agregado y configurado. Esto se va a ir sumando a los servers Vanilla.</p>
+          <ul class="gridlist">
+            <li><code>!vote</code> / <code>!votes</code> / <code>!votar</code></li>
+            <li><code>!scrambleteam</code></li>
+            <li><code>!respawn</code></li>
+            <li><code>!voteadmin</code></li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="custom" class="update" data-tags="custom">
+        <header class="update__head">
+          <h2>🎨 Extras de servidores CUSTOM</h2>
+          <div class="badges">
+            <span class="badge">Solo Custom</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <div class="cols">
+            <div class="col">
+              <h3>Contenido</h3>
+              <ul>
+                <li>Trails</li>
+                <li><code>!sounds</code></li>
+                <li>Custom maps</li>
+                <li>Mapas con VScript de <b>MvM Upgrades</b></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3>Skins y comandos</h3>
+              <ul>
+                <li><code>!sans</code> (skin)</li>
+                <li><code>!miku</code> (solo VIP)</li>
+                <li><code>!robot</code> (solo VIP)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callouts">
+            <div class="callout">
+              <div class="callout__title">Nota Miku</div>
+              <p>Miku solo tiene textura para <b>RED</b> y <b>BLU</b>. En equipos <b>verde</b> y <b>amarillo</b> se va a ver como <b>roja</b>.</p>
+            </div>
+            <div class="callout">
+              <div class="callout__title">Nota Sans</div>
+              <p>Sans es <b>solo para Civilian</b> y funciona bien en los <b>4 teams</b>.</p>
+            </div>
+          </div>
+
+          <p class="note">Más adelante, algunas cosas de Custom pueden pasar a Vanilla si la gente lo pide (por ejemplo <code>!sounds</code>).</p>
+        </div>
+      </article>
+
+      <article id="money" class="update" data-tags="custom">
+        <header class="update__head">
+          <h2>💰 Sistema de dinero</h2>
+          <div class="badges">
+            <span class="badge">Solo Custom</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <p>Se agregó una base de sistema de dinero para, a futuro, sumar recompensas y habilidades.</p>
+          <ul class="gridlist">
+            <li><code>!money</code></li>
+            <li><code>!amoney</code></li>
+            <li><code>!mejoras</code></li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="rtd" class="update" data-tags="custom wip">
+        <header class="update__head">
+          <h2>🎲 RTD Custom</h2>
+          <div class="badges">
+            <span class="badge">Custom</span>
+            <span class="badge badge--warn">En progreso</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <p><code>!rtd</code> está <b>casi listo</b>. Todo es funcional, pero hay <b>1 efecto con bug</b> que se está puliendo.</p>
+          <p class="note">Objetivo: sacarlo para <b>todos los servers</b> ni bien quede 100% redondo.</p>
+        </div>
+      </article>
+
+      <article id="unusuals" class="update" data-tags="custom wip">
+        <header class="update__head">
+          <h2>✨ Unusuals (VIP + Veteranos)</h2>
+          <div class="badges">
+            <span class="badge">Solo Custom</span>
+            <span class="badge badge--warn">En progreso</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <p>Se agregó <code>!unusuals</code> para elegir partículas. Ya está integrado al <b>VIP Menu</b> y el plugin está <b>configurado</b>.</p>
+          <div class="callouts">
+            <div class="callout callout--warn">
+              <div class="callout__title">Falta pulido general</div>
+              <ul>
+                <li>Que el efecto se <b>guarde</b> aunque salgas del server (persistencia).</li>
+                <li>Que se <b>elimine bien</b> y no quede pegado en el mapa.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">Cuando quede perfecto, lo llevo a más servers.</p>
+        </div>
+      </article>
+
+      <article id="arena" class="update" data-tags="custom">
+        <header class="update__head">
+          <h2>🔥 Nuevo modo: Arena mejorada</h2>
+          <div class="badges">
+            <span class="badge">Solo Custom</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <ul class="gridlist">
+            <li><b>3 vidas</b> por ronda.</li>
+            <li>Al matar: <b>minicrits</b> + <b>buff de velocidad</b>.</li>
+            <li>Capturar <b>no gana instantáneo</b>: hay que mantener el punto <b>15s</b>.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="admin" class="update" data-tags="custom">
+        <header class="update__head">
+          <h2>🛠️ Herramientas y comandos para Admins</h2>
+          <div class="badges">
+            <span class="badge">Solo Custom</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <h3>Anti-exploit / entidades: ent_peek</h3>
+          <ul>
+            <li><code>sm_entscan &lt;radius&gt;</code> → lista entidades sospechosas cerca tuyo</li>
+            <li><code>sm_entscan_class &lt;filtro&gt; &lt;radius&gt;</code> → ej: <code>sm_entscan_class particle 800</code></li>
+            <li><code>sm_entscan_watch 1/0</code> → prende/apaga log de entidades creadas (consola del server)</li>
+          </ul>
+
+          <h3>Comandos de test / utilidades</h3>
+          <ul class="gridlist">
+            <li><code>!partfind</code> (encontrar partícula en el juego)</li>
+            <li><code>!parttest</code> (testear esa partícula)</li>
+            <li><code>!sm_cond</code> (testea un cond; ej minicrits = 16)</li>
+            <li><code>!sm_rtd_testmenu</code> (testear los RTD aparte)</li>
+            <li><code>sm_unusuals_cleanup</code> (limpia efectos inusuales)</li>
+            <li><code>sm_unusuals_reloadcfg</code> (recarga cfg)</li>
+          </ul>
+
+          <details class="details">
+            <summary>Comandos que existen pero normalmente no hace falta usar</summary>
+            <div class="details__inner">
+              <ul class="gridlist">
+                <li><code>!veterano</code></li>
+                <li><code>!vipcolor</code></li>
+                <li><code>!setcolor</code></li>
+                <li><code>!unusuals</code></li>
+                <li><code>sm_unusualsoff</code></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <article id="galeria" class="update" data-tags="general custom">
+        <header class="update__head">
+          <h2>🖼️ Galería (capturas de las mejoras)</h2>
+          <div class="badges">
+            <span class="badge">General + Custom</span>
+          </div>
+        </header>
+        <div class="update__body">
+          <p class="note">Si alguna imagen no carga, revisá que esté subida en tu repo con el mismo nombre y ruta.</p>
+
+          <h3>Menús / UI</h3>
+          <div class="gallery">
+            <figure>
+              <img src="update1/menuvip.png" alt="VIP Menu" loading="lazy" />
+              <figcaption>VIP Menu actualizado</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/menuadmin.png" alt="Menú Admin" loading="lazy" />
+              <figcaption>Menú de Admin mejorado</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/menusonidos.png" alt="Menú de sonidos" loading="lazy" />
+              <figcaption>`!sounds` (Custom)</figcaption>
+            </figure>
+          </div>
+
+          <h3>MOTD / Trails / Money</h3>
+          <div class="gallery">
+            <figure>
+              <img src="update1/comosevemotd.png" alt="MOTD" loading="lazy" />
+              <figcaption>Custom MOTD</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/comosevetrails.png" alt="Trails" loading="lazy" />
+              <figcaption>Trails (Custom)</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/dinerotiradoyhud.png" alt="Sistema de dinero" loading="lazy" />
+              <figcaption>Sistema de dinero (base)</figcaption>
+            </figure>
+          </div>
+
+          <h3>Chat fixes (antes / después)</h3>
+          <div class="gallery gallery--two">
+            <figure>
+              <img src="update1/chatantescolor.png" alt="Chat antes" loading="lazy" />
+              <figcaption>Antes</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/chatdespuescolor.png" alt="Chat después" loading="lazy" />
+              <figcaption>Después</figcaption>
+            </figure>
+          </div>
+
+          <h3>Skins</h3>
+          <div class="gallery">
+            <figure>
+              <img src="update1/mikuroja.png" alt="Miku RED" loading="lazy" />
+              <figcaption>Miku (RED)</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/mikuazul.png" alt="Miku BLU" loading="lazy" />
+              <figcaption>Miku (BLU)</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/sanscivilian.png" alt="Sans Civilian" loading="lazy" />
+              <figcaption>Sans (solo Civilian)</figcaption>
+            </figure>
+          </div>
+
+          <h3>Unusuals</h3>
+          <div class="gallery">
+            <figure>
+              <img src="update1/unusualdemostracion1.png" alt="Unusual demo 1" loading="lazy" />
+              <figcaption>Unusuals demo 1</figcaption>
+            </figure>
+            <figure>
+              <img src="update1/unusualdemostracion2.png" alt="Unusual demo 2" loading="lazy" />
+              <figcaption>Unusuals demo 2</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <div class="footer__title">TF2C LATAM</div>
+          <div class="footer__sub">Changelog / Updates</div>
+        </div>
+        <div class="footer__right">
+          <a class="link" href="index.html">Inicio</a>
+          <a class="link" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Arriba</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="updates.js"></script>
+</body>
+</html>
