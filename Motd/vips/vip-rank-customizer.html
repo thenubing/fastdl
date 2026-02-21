@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personalizar rango VIP</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#161b22;
+      --panel2:#1d2430;
+      --text:#e6edf3;
+      --muted:#9fb0c3;
+      --border:#2a3444;
+      --accent:#58a6ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background:linear-gradient(180deg,#0b0f14,#121826);
+      color:var(--text);
+    }
+    .wrap{max-width:1000px;margin:0 auto;padding:18px}
+    h1{margin:0 0 6px;font-size:1.5rem}
+    .sub{color:var(--muted);margin-bottom:14px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+    }
+    .card h2{margin:0 0 12px;font-size:1rem}
+    .box{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:rgba(255,255,255,.01);
+      margin-bottom:12px;
+    }
+    .box h3{margin:0 0 10px;font-size:.92rem;color:#dbe7ff}
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .row3{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    @media (max-width: 650px){
+      .row,.row3{grid-template-columns:1fr}
+    }
+
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-size:.82rem;color:var(--muted)}
+    input[type=text], select, textarea{
+      width:100%;
+      background:#0f141c;
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px 12px;
+      outline:none;
+    }
+    input[type=text]:focus, select:focus, textarea:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(88,166,255,.18);
+    }
+
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{
+      border:1px solid #33445b;
+      background:#223047;
+      color:#e9f2ff;
+      border-radius:999px;
+      padding:6px 10px;
+      cursor:pointer;
+      font-size:.9rem;
+      user-select:none;
+    }
+    .chip:hover{background:#2b3c56}
+
+    .teamPicker{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    .teamBtn{
+      border:1px solid #33445b;
+      border-radius:10px;
+      padding:9px 10px;
+      background:#1a2331;
+      color:#eaf2ff;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .teamBtn.active{
+      outline:2px solid rgba(255,255,255,.15);
+      box-shadow: inset 0 0 0 999px rgba(255,255,255,.05);
+    }
+
+    .presets{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+    }
+    .presetBtn, button{
+      border:none;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:600;
+      cursor:pointer;
+      color:white;
+      background:#2a67df;
+    }
+    .presetBtn.alt{background:#404d63}
+    .presetBtn.ok{background:#1f9d62}
+    .btns{display:flex;gap:8px;flex-wrap:wrap}
+
+    .preview{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:linear-gradient(180deg,#111723,#0d121b);
+    }
+    .label{font-size:.8rem;color:var(--muted);margin:0 0 6px}
+    .chatLine,.tagOnly{
+      border:1px dashed rgba(255,255,255,.09);
+      background:rgba(255,255,255,.02);
+      border-radius:10px;
+      padding:10px;
+      margin-bottom:10px;
+      word-break:break-word;
+    }
+
+    textarea{
+      min-height:170px;
+      resize:vertical;
+      font-family:Consolas,monospace;
+      font-size:.9rem;
+    }
+    details{
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:8px 10px;
+      background:rgba(255,255,255,.01);
+    }
+    summary{cursor:pointer;color:#dbe7ff;font-weight:600}
+    .help{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .status{font-size:.84rem;margin-top:8px;color:var(--muted)}
+    .status.ok{color:#8ff0bb}
+
+    /* select con puntito de color visual */
+    .colorPreviewInline{
+      display:flex; align-items:center; gap:8px;
+      font-size:.82rem; color:var(--muted);
+      margin-top:4px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      display:inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🎨 Personalizar tu rango VIP</h1>
+    <div class="sub">
+      Elegí símbolos y colores, y mirá cómo se vería tu rango antes de usarlo.
+    </div>
+
+    <div class="grid">
+      <!-- Config -->
+      <div class="card">
+        <h2>Configuración</h2>
+
+        <div class="box">
+          <h3>1) Estilo del rango</h3>
+          <div class="row">
+            <div class="field">
+              <label>Nombre de ejemplo (solo vista previa)</label>
+              <input id="playerName" type="text" value="LeFou">
+            </div>
+            <div class="field">
+              <label>Mensaje de ejemplo</label>
+              <input id="messageText" type="text" value="hola, así se vería mi rango">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Símbolo izquierdo</label>
+              <input id="leftSymbol" type="text" value="★" maxlength="6">
+            </div>
+            <div class="field">
+              <label>Texto del rango</label>
+              <input id="rankLabel" type="text" value="[VIP]" maxlength="18">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Símbolo derecho</label>
+            <input id="rightSymbol" type="text" value="❥" maxlength="6">
+          </div>
+
+          <div class="field">
+            <label>Símbolos rápidos</label>
+            <div class="chips" id="symbolChips">
+              <span class="chip" data-symbol="★">★</span>
+              <span class="chip" data-symbol="✦">✦</span>
+              <span class="chip" data-symbol="✧">✧</span>
+              <span class="chip" data-symbol="❥">❥</span>
+              <span class="chip" data-symbol="❤">❤</span>
+              <span class="chip" data-symbol="◆">◆</span>
+              <span class="chip" data-symbol="◇">◇</span>
+              <span class="chip" data-symbol="➤">➤</span>
+              <span class="chip" data-symbol="✪">✪</span>
+              <span class="chip" data-symbol="☄">☄</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>2) Elegí colores</h3>
+          <div class="help" style="margin-bottom:8px;">
+            Tip: si elegís <b>Color del nombre → Color del equipo</b>, se va a ver distinto según el team.
+          </div>
+
+          <div class="row3">
+            <div class="field">
+              <label>Color símbolo izquierdo</label>
+              <select id="leftSymbolColor"></select>
+              <div class="colorPreviewInline"><span class="dot" id="dotLeft"></span><span id="labelLeft"></span></div>
+            </div>
+            <div class="field">
+              <label>Color del texto [VIP]</label>
+              <select id="rankLabelColor"></select>
+              <div class="colorPreviewInline"><span class="dot" id="dotRank"></span><span id="labelRank"></span></div>
+            </div>
+            <div class="field">
+              <label>Color símbolo derecho</label>
+              <select id="rightSymbolColor"></select>
+              <div class="colorPreviewInline"><span class="dot" id="dotRight"></span><span id="labelRight"></span></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Color del mensaje</label>
+              <select id="chatColor"></select>
+              <div class="colorPreviewInline"><span class="dot" id="dotChat"></span><span id="labelChat"></span></div>
+            </div>
+            <div class="field">
+              <label>Color del nombre</label>
+              <select id="nameColor"></select>
+              <div class="colorPreviewInline"><span class="dot" id="dotName"></span><span id="labelName"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>3) Equipo para la vista previa</h3>
+          <div class="help" style="margin-bottom:8px;">
+            Esto solo cambia la vista previa cuando usás “Color del equipo”.
+          </div>
+          <div class="teamPicker">
+            <button class="teamBtn active" data-team="RED" type="button" style="background:#5b2020;">RED</button>
+            <button class="teamBtn" data-team="BLU" type="button" style="background:#18345a;">BLU</button>
+            <button class="teamBtn" data-team="GRN" type="button" style="background:#1f4f2a;">GRN</button>
+            <button class="teamBtn" data-team="YLW" type="button" style="background:#5a4c18;">YLW</button>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>4) Estilos rápidos</h3>
+          <div class="presets">
+            <button class="presetBtn" data-preset="classic" type="button">VIP clásico</button>
+            <button class="presetBtn" data-preset="soft" type="button">VIP suave</button>
+            <button class="presetBtn" data-preset="fire" type="button">VIP fuego</button>
+            <button class="presetBtn" data-preset="ice" type="button">VIP hielo</button>
+            <button class="presetBtn alt" data-preset="teamname" type="button">Nombre = color equipo</button>
+            <button class="presetBtn ok" id="btnGenerate" type="button">Actualizar vista previa</button>
+          </div>
+        </div>
+
+        <details>
+          <summary>Admin (opcional)</summary>
+          <div style="margin-top:10px">
+            <div class="row">
+              <div class="field">
+                <label>SteamID</label>
+                <input id="steamId" type="text" value="STEAM_0:1:796469442">
+              </div>
+              <div class="field">
+                <label>Comentario</label>
+                <input id="comment" type="text" value="VIP custom">
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label>Force</label>
+                <select id="forceValue">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Espacios al final del prefijo</label>
+                <select id="spacesAfterTag">
+                  <option value="1">1</option>
+                  <option value="2" selected>2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Preview -->
+      <div class="card">
+        <h2>Vista previa</h2>
+
+        <div class="preview">
+          <div class="label">Así se vería en el chat</div>
+          <div class="chatLine" id="chatPreview"></div>
+
+          <div class="label">Solo tu prefijo</div>
+          <div class="tagOnly" id="tagPreview"></div>
+        </div>
+
+        <div class="box" style="margin-top:12px">
+          <h3>Copiar configuración</h3>
+          <textarea id="output" readonly></textarea>
+          <div class="btns" style="margin-top:8px">
+            <button id="btnCopy" type="button">Copiar</button>
+          </div>
+          <div id="copyStatus" class="status"></div>
+          <div class="help" style="margin-top:8px">
+            Esto genera el bloque listo para pegar en tu config.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================
+    // Colores y nombres "amigables"
+    // =========================
+    const COLOR_CATALOG = [
+      { token:"teamcolor", label:"Color del equipo", group:"Especial" },
+
+      { token:"white", label:"Blanco", group:"Básicos" },
+      { token:"black", label:"Negro", group:"Básicos" },
+      { token:"gray", label:"Gris", group:"Básicos" },
+      { token:"red", label:"Rojo", group:"Básicos" },
+      { token:"blue", label:"Azul", group:"Básicos" },
+      { token:"green", label:"Verde", group:"Básicos" },
+      { token:"yellow", label:"Amarillo", group:"Básicos" },
+      { token:"orange", label:"Naranja", group:"Básicos" },
+      { token:"purple", label:"Violeta", group:"Básicos" },
+      { token:"pink", label:"Rosa", group:"Básicos" },
+      { token:"cyan", label:"Cian", group:"Básicos" },
+
+      { token:"gold", label:"Dorado", group:"Favoritos" },
+      { token:"dodgerblue", label:"Azul fuerte", group:"Favoritos" },
+      { token:"deepskyblue", label:"Celeste intenso", group:"Favoritos" },
+      { token:"fuchsia", label:"Fucsia", group:"Favoritos" },
+      { token:"wheat", label:"Beige suave", group:"Favoritos" },
+      { token:"floralwhite", label:"Blanco cálido", group:"Favoritos" },
+      { token:"tomato", label:"Rojo tomate", group:"Favoritos" },
+      { token:"limegreen", label:"Verde lima", group:"Favoritos" },
+      { token:"orchid", label:"Orquídea", group:"Favoritos" },
+      { token:"plum", label:"Lila", group:"Favoritos" },
+      { token:"hotpink", label:"Rosa fuerte", group:"Favoritos" },
+      { token:"turquoise", label:"Turquesa", group:"Favoritos" },
+
+      // especiales TF item style (si tu setup los soporta)
+      { token:"unusual", label:"Unusual", group:"Especiales TF" },
+      { token:"rare", label:"Rare", group:"Especiales TF" },
+      { token:"unique", label:"Unique", group:"Especiales TF" },
+      { token:"strange", label:"Strange", group:"Especiales TF" },
+      { token:"vintage", label:"Vintage", group:"Especiales TF" },
+      { token:"haunted", label:"Haunted", group:"Especiales TF" },
+      { token:"genuine", label:"Genuine", group:"Especiales TF" },
+      { token:"legendary", label:"Legendary", group:"Especiales TF" },
+      { token:"mythical", label:"Mythical", group:"Especiales TF" },
+      { token:"immortal", label:"Immortal", group:"Especiales TF" },
+      { token:"community", label:"Community", group:"Especiales TF" },
+      { token:"valve", label:"Valve", group:"Especiales TF" },
+      { token:"collectors", label:"Collector's", group:"Especiales TF" },
+      { token:"selfmade", label:"Self-Made", group:"Especiales TF" }
+    ];
+
+    // Colores de preview (aproximados)
+    const COLOR_PREVIEW = {
+      teamcolor: "#ff6b6b", // se reemplaza dinámicamente según team
+      white:"#ffffff", black:"#111111", gray:"#888888", red:"#ff4d4d", blue:"#4da3ff", green:"#47d16c",
+      yellow:"#ffd54a", orange:"#ffad42", purple:"#9b6bff", pink:"#ff88c9", cyan:"#5be7ff",
+
+      gold:"#ffd700", dodgerblue:"#1e90ff", deepskyblue:"#00bfff", fuchsia:"#ff00ff", wheat:"#f5deb3",
+      floralwhite:"#fffaf0", tomato:"#ff6347", limegreen:"#32cd32", orchid:"#da70d6", plum:"#dda0dd",
+      hotpink:"#ff69b4", turquoise:"#40e0d0",
+
+      unusual:"#b37dff", rare:"#5ea8ff", unique:"#ffd34f", strange:"#ffa64d", vintage:"#7cc7ff",
+      haunted:"#97ff7a", genuine:"#7fff7f", legendary:"#ffcc66", mythical:"#d8a6ff", immortal:"#ffb7ff",
+      community:"#70d6a9", valve:"#ff5f5f", collectors:"#ffb347", selfmade:"#7dff9d"
+    };
+
+    const TEAM_COLORS = {
+      RED: "#ff6b6b",
+      BLU: "#7db8ff",
+      GRN: "#7be38d",
+      YLW: "#ffe36a"
+    };
+
+    let selectedTeam = "RED";
+
+    const $ = (id) => document.getElementById(id);
+
+    const els = {
+      playerName: $("playerName"),
+      messageText: $("messageText"),
+      leftSymbol: $("leftSymbol"),
+      rankLabel: $("rankLabel"),
+      rightSymbol: $("rightSymbol"),
+
+      leftSymbolColor: $("leftSymbolColor"),
+      rankLabelColor: $("rankLabelColor"),
+      rightSymbolColor: $("rightSymbolColor"),
+      chatColor: $("chatColor"),
+      nameColor: $("nameColor"),
+
+      steamId: $("steamId"),
+      comment: $("comment"),
+      forceValue: $("forceValue"),
+      spacesAfterTag: $("spacesAfterTag"),
+
+      chatPreview: $("chatPreview"),
+      tagPreview: $("tagPreview"),
+      output: $("output"),
+      btnCopy: $("btnCopy"),
+      copyStatus: $("copyStatus"),
+
+      dotLeft: $("dotLeft"), labelLeft: $("labelLeft"),
+      dotRank: $("dotRank"), labelRank: $("labelRank"),
+      dotRight: $("dotRight"), labelRight: $("labelRight"),
+      dotChat: $("dotChat"), labelChat: $("labelChat"),
+      dotName: $("dotName"), labelName: $("labelName"),
+
+      symbolChips: $("symbolChips")
+    };
+
+    function esc(str){
+      return String(str ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+    }
+
+    function escQuotes(str){
+      return String(str ?? "").replace(/\\/g,"\\\\").replace(/"/g,'\\"');
+    }
+
+    function sanitizeSymbol(str){
+      return String(str || "").replace(/[\u0000-\u001F\u007F]/g, "").slice(0,6);
+    }
+
+    function colorToken(token){
+      return `{${token}}`;
+    }
+
+    function previewColor(token){
+      if (token === "teamcolor") return TEAM_COLORS[selectedTeam];
+      return COLOR_PREVIEW[token] || "#ffffff";
+    }
+
+    function colorLabel(token){
+      const found = COLOR_CATALOG.find(c => c.token === token);
+      return found ? found.label : token;
+    }
+
+    function fillColorSelect(selectEl, defaultToken){
+      // agrupado por categorías
+      const groups = {};
+      for (const item of COLOR_CATALOG){
+        if (!groups[item.group]) groups[item.group] = [];
+        groups[item.group].push(item);
+      }
+
+      selectEl.innerHTML = "";
+      for (const [groupName, items] of Object.entries(groups)){
+        const og = document.createElement("optgroup");
+        og.label = groupName;
+
+        for (const item of items){
+          const opt = document.createElement("option");
+          opt.value = item.token;
+          opt.textContent = item.label;
+          if (item.token === defaultToken) opt.selected = true;
+          og.appendChild(opt);
+        }
+
+        selectEl.appendChild(og);
+      }
+    }
+
+    function buildChatTagToken(){
+      const left = sanitizeSymbol(els.leftSymbol.value);
+      const rank = (els.rankLabel.value || "[VIP]").slice(0,18);
+      const right = sanitizeSymbol(els.rightSymbol.value);
+      const sp = " ".repeat(Number(els.spacesAfterTag.value || 2));
+
+      const parts = [];
+      if (left)  parts.push(`${colorToken(els.leftSymbolColor.value)}${left}`);
+      if (rank)  parts.push(`${colorToken(els.rankLabelColor.value)}${rank}`);
+      if (right) parts.push(`${colorToken(els.rightSymbolColor.value)}${right}`);
+
+      if (parts.length === 3) return `${parts[0]}${parts[1]} ${parts[2]}${sp}`;
+      return parts.join("") + sp;
+    }
+
+    function buildTagPreviewHTML(){
+      const left = sanitizeSymbol(els.leftSymbol.value);
+      const rank = (els.rankLabel.value || "[VIP]").slice(0,18);
+      const right = sanitizeSymbol(els.rightSymbol.value);
+      const sp = "&nbsp;".repeat(Number(els.spacesAfterTag.value || 2));
+
+      const leftHTML = left ? `<span style="color:${previewColor(els.leftSymbolColor.value)}">${esc(left)}</span>` : "";
+      const rankHTML = rank ? `<span style="color:${previewColor(els.rankLabelColor.value)}">${esc(rank)}</span>` : "";
+      const rightHTML = right ? `<span style="color:${previewColor(els.rightSymbolColor.value)}">${esc(right)}</span>` : "";
+
+      if (leftHTML && rankHTML && rightHTML) return `${leftHTML}${rankHTML} ${rightHTML}${sp}`;
+      return `${leftHTML}${rankHTML}${rightHTML}${sp}`;
+    }
+
+    function buildOutputBlock(){
+      const steamId = (els.steamId.value || "STEAM_0:0:000000000").trim();
+      const comment = (els.comment.value || "").trim();
+      const chatTag = buildChatTagToken();
+      const chatColor = colorToken(els.chatColor.value);
+      const nameColor = colorToken(els.nameColor.value);
+      const force = els.forceValue.value || "0";
+
+      return `"${escQuotes(steamId)}"${comment ? ` // ${comment}` : ""}
+{
+    "ChatTag"    "${escQuotes(chatTag)}"
+    "ChatColor"  "${escQuotes(chatColor)}"
+    "NameColor"  "${escQuotes(nameColor)}"
+    "Force"      "${escQuotes(force)}"
+}`;
+    }
+
+    function updateColorMiniPreviews(){
+      const map = [
+        ["leftSymbolColor", els.dotLeft, els.labelLeft],
+        ["rankLabelColor", els.dotRank, els.labelRank],
+        ["rightSymbolColor", els.dotRight, els.labelRight],
+        ["chatColor", els.dotChat, els.labelChat],
+        ["nameColor", els.dotName, els.labelName],
+      ];
+
+      for (const [key, dotEl, labelEl] of map){
+        const token = els[key].value;
+        dotEl.style.background = previewColor(token);
+        labelEl.textContent = colorLabel(token) + (token === "teamcolor" ? ` (${selectedTeam})` : "");
+      }
+    }
+
+    function render(){
+      updateColorMiniPreviews();
+
+      const tagHTML = buildTagPreviewHTML();
+      const nameColorCss = previewColor(els.nameColor.value);
+      const chatColorCss = previewColor(els.chatColor.value);
+
+      els.tagPreview.innerHTML = tagHTML;
+      els.chatPreview.innerHTML =
+        `${tagHTML}<span style="color:${nameColorCss}">${esc(els.playerName.value || "Jugador")}</span>` +
+        `<span style="color:#cfd7e3"> : </span>` +
+        `<span style="color:${chatColorCss}">${esc(els.messageText.value || "mensaje de prueba")}</span>`;
+
+      els.output.value = buildOutputBlock();
+    }
+
+    function applyPreset(name){
+      switch(name){
+        case "classic":
+          els.leftSymbol.value = "★";
+          els.rankLabel.value = "[VIP]";
+          els.rightSymbol.value = "❥";
+          els.leftSymbolColor.value = "yellow";
+          els.rankLabelColor.value = "dodgerblue";
+          els.rightSymbolColor.value = "floralwhite";
+          els.chatColor.value = "wheat";
+          els.nameColor.value = "fuchsia";
+          break;
+
+        case "soft":
+          els.leftSymbol.value = "✧";
+          els.rankLabel.value = "[VIP]";
+          els.rightSymbol.value = "❤";
+          els.leftSymbolColor.value = "pink";
+          els.rankLabelColor.value = "plum";
+          els.rightSymbolColor.value = "floralwhite";
+          els.chatColor.value = "white";
+          els.nameColor.value = "orchid";
+          break;
+
+        case "fire":
+          els.leftSymbol.value = "◆";
+          els.rankLabel.value = "[VIP]";
+          els.rightSymbol.value = "➤";
+          els.leftSymbolColor.value = "gold";
+          els.rankLabelColor.value = "orangered";
+          els.rightSymbolColor.value = "tomato";
+          els.chatColor.value = "wheat";
+          els.nameColor.value = "orange";
+          break;
+
+        case "ice":
+          els.leftSymbol.value = "✦";
+          els.rankLabel.value = "[VIP]";
+          els.rightSymbol.value = "◇";
+          els.leftSymbolColor.value = "white";
+          els.rankLabelColor.value = "deepskyblue";
+          els.rightSymbolColor.value = "cyan";
+          els.chatColor.value = "white";
+          els.nameColor.value = "teamcolor";
+          break;
+
+        case "teamname":
+          els.nameColor.value = "teamcolor";
+          break;
+      }
+      render();
+    }
+
+    async function copyOutput(){
+      try{
+        await navigator.clipboard.writeText(els.output.value);
+        els.copyStatus.textContent = "Copiado ✅";
+        els.copyStatus.className = "status ok";
+      } catch {
+        els.copyStatus.textContent = "No se pudo copiar automáticamente. Copialo manualmente.";
+        els.copyStatus.className = "status";
+      }
+    }
+
+    // Init selects
+    fillColorSelect(els.leftSymbolColor, "yellow");
+    fillColorSelect(els.rankLabelColor, "dodgerblue");
+    fillColorSelect(els.rightSymbolColor, "floralwhite");
+    fillColorSelect(els.chatColor, "wheat");
+    fillColorSelect(els.nameColor, "fuchsia");
+
+    // Eventos inputs/selects
+    document.querySelectorAll("input, select").forEach(el => {
+      el.addEventListener("input", render);
+      el.addEventListener("change", render);
+    });
+
+    // Presets
+    document.querySelectorAll("[data-preset]").forEach(btn => {
+      btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
+    });
+
+    // Team picker
+    document.querySelectorAll(".teamBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedTeam = btn.dataset.team;
+        document.querySelectorAll(".teamBtn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render();
+      });
+    });
+
+    // Símbolos rápidos
+    els.symbolChips.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip");
+      if (!chip) return;
+      const s = chip.dataset.symbol || chip.textContent.trim();
+
+      if (!els.leftSymbol.value.trim()) els.leftSymbol.value = s;
+      else els.rightSymbol.value = s;
+
+      render();
+    });
+
+    document.getElementById("btnGenerate").addEventListener("click", render);
+    els.btnCopy.addEventListener("click", copyOutput);
+
+    render();
+  </script>
+</body>
+</html>
