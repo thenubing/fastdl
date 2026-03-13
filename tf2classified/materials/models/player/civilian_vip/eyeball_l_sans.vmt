@@ -1,0 +1,28 @@
+"EyeRefract"
+{
+
+	"$AmbientOcclTexture" "models\player\civilian_vip\eyeball"
+	"$CorneaTexture"      "models\player\civilian_vip\eyeball"
+	
+	"$iris" "models\player\civilian_vip\eyeball_iris"
+	
+	
+	"$lightwarptexture"   "models/player/shared/eye_lightwarp" 
+	
+	"$EyeballRadius" "0"
+	"$CorneaBumpStrength" "0"
+	"$ParallaxStrength" "0"
+	"$AmbientOcclColor" "[3 3 3]"
+	"$ambientocclusion" "1"
+	"$halflambert" "0"
+	$envmap "models/effects/black"
+
+	// Cloaking
+	"$cloakPassEnabled" "1"
+	"Proxies"
+	{
+		"spy_invis"
+		{
+		}
+	}
+}

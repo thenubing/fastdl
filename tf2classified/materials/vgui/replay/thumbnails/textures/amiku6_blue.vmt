@@ -1,0 +1,18 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "vgui/replay/thumbnails/textures/Amiku6_blue"
+	"$nocull" "1"
+	"$bumpmap" "vgui/replay/thumbnails/textures/normal"
+
+	"$lightwarptexture" "vgui/replay/thumbnails/textures/toon_skin"
+
+	"$phong" "1"
+	"$phongboost"	".1"
+	"$phongalbedotint" "1"
+	"$phongexponenttexture" "vgui/replay/thumbnails/textures/phong_exp"
+	"$phongfresnelranges"	"[1 .1 .1]"
+
+	"$rimlight"               "1"
+	"$rimlightexponent"       "3"
+	"$rimlightboost"          "4"
+}

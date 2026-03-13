@@ -1,0 +1,13 @@
+"Sprite"
+{
+    "$basetexture" "sprites/arena_lives/vida1"
+    "$translucent" "1"
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+    "$spriteorientation" "vp_parallel"
+    "$spriterendermode" "5"
+
+    "$nocull" "1"
+    "$nofog" "1"
+    "$ignorez" "1"
+}
